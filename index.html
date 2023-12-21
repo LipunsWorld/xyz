@@ -10,93 +10,93 @@
             color: red;
             font-family: Arial, sans-serif;
             text-align: center;
+            padding: 50px;
             margin: 0;
-            padding: 20px;
         }
-
-        h1 {
-            font-size: 3em;
+        .login-link {
+            color: red;
+            font-size: 18px;
+            text-decoration: none;
         }
-
-        #loginLink {
-            color: white;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 1.5em;
-            margin-top: 20px;
+        .error-message {
+            color: red;
+            font-size: 24px;
         }
-
-        #loginForm {
+        .success-message {
+            color: yellow;
+            font-size: 20px;
+        }
+        .math-problem-container {
             display: none;
-            margin-top: 20px;
-        }
-
-        #loggedInContent {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .smiley {
-            font-size: 2em;
-        }
-
-        .flower {
-            font-size: 3em;
-            color: #ff69b4;
-        }
-
-        #message {
-            margin-top: 20px;
-            font-size: 1.2em;
-        }
-
-        #background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <img src="smiley-face.png" id="background" alt="Background Image">
     <h1>Welcome to My World</h1>
-    <div id="loginLink" onclick="showLoginForm()">Click here to login</div>
 
-    <div id="loginForm">
-        <label for="userId">ID (Your First Name):</label>
-        <input type="text" id="userId" placeholder="Enter ID">
-        <br>
-        <label for="password">Password (DDMMYYYY):</label>
-        <input type="password" id="password" placeholder="Enter Password">
-        <br>
-        <button onclick="login()">Login</button>
-        <p>Hint: ID is your first name. Password is your DOB in DDMMYYYY format.</p>
+    <!-- Login Section -->
+    <p><a href="#" class="login-link" onclick="showLogin()">Click here to login</a></p>
+
+    <!-- Login Form (Initially Hidden) -->
+    <div id="loginForm" style="display: none;">
+        <form onsubmit="return validateLogin()">
+            <label for="id">ID (Hint: Your First Name):</label>
+            <input type="text" id="id" name="id" required><br>
+
+            <label for="password">Password (Hint: Your DOB - DDMMYYYY):</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <button type="submit">Login</button>
+        </form>
+        <p id="errorMessage" class="error-message"></p>
     </div>
 
-    <div id="loggedInContent">
-        <div class="smiley">😊😊😊</div>
-        <div class="flower">🌸🌸🌸</div>
-        <div id="message">My child, please collect your gift from Rahil Mittal</div>
+    <!-- Math Problem Section (Initially Hidden) -->
+    <div id="mathProblemContainer" class="math-problem-container">
+        <h2>Solve the Math Problem!</h2>
+        <p>if 5+10=15<br>
+           6+10=20<br>
+           7+10=25<br>
+           What is 8+10=?</p>
+        <input type="number" id="mathAnswer" required>
+        <button onclick="solveMathProblem()">Submit Answer</button>
+    </div>
+
+    <!-- Success Message (Initially Hidden) -->
+    <div id="successMessage" style="display: none;">
+        <p class="success-message">Congratulations, Sunaina! 🎉 Please collect your gift from your best friend. 😁</p>
     </div>
 
     <script>
-        function showLoginForm() {
-            document.getElementById('loginLink').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
+        function showLogin() {
+            document.getElementById("loginForm").style.display = "block";
         }
 
-        function login() {
-            var userId = document.getElementById('userId').value;
-            var password = document.getElementById('password').value;
+        function validateLogin() {
+            var enteredId = document.getElementById("id").value;
+            var enteredPassword = document.getElementById("password").value;
 
-            if (userId.toUpperCase() === 'SUNAINA' && password === '04122000') {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('loggedInContent').style.display = 'block';
+            // Check if ID and Password are correct
+            if (enteredId.toUpperCase() === "SUNAINA" && enteredPassword === "04122000") {
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("mathProblemContainer").style.display = "block";
+                return false; // To prevent form submission
             } else {
-                alert('Invalid credentials. Please try again.');
+                document.getElementById("errorMessage").innerHTML = "प्रवेश निषेध"; // Display error message
+                return false; // To prevent form submission
+            }
+        }
+
+        function solveMathProblem() {
+            var userAnswer = document.getElementById("mathAnswer").value;
+
+            // Check if the math problem is solved correctly
+            if (userAnswer === "18") {
+                // Display the success message
+                document.getElementById("mathProblemContainer").style.display = "none";
+                document.getElementById("successMessage").style.display = "block";
+            } else {z
+                alert("आपका जवाब गलत है"); // Display error message
             }
         }
     </script>
